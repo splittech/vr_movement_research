@@ -4,19 +4,19 @@ from . import models
 
 class LocomotionPresetSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.LocomotionPresets
+        model = models.LocomotionPreset
         fields = '__all__'
 
 
 class TeleportationPresetSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.TeleportationPresets
+        model = models.TeleportationPreset
         fields = '__all__'
 
 
 class RotationPresetSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.RotationPresets
+        model = models.RotationPreset
         fields = '__all__'
 
 
@@ -27,50 +27,50 @@ class PresetUserListSerializer(serializers.ModelSerializer):
 
 
 class PresetUserSerializer(serializers.ModelSerializer):
-    locomotionPresets = LocomotionPresetSerializer()
-    teleportationPresets = TeleportationPresetSerializer()
-    rotationPresets = RotationPresetSerializer()
+    locomotionPreset = LocomotionPresetSerializer()
+    teleportationPreset = TeleportationPresetSerializer()
+    rotationPreset = RotationPresetSerializer()
 
     class Meta:
         model = models.PresetUsers
         fields = '__all__'
 
     def create(self, validated_data):
-        locomotionPresets_data = validated_data.pop('locomotionPresets')
-        teleportationPresets_data = validated_data.pop('teleportationPresets')
-        rotationPresets_data = validated_data.pop('rotationPresets')
+        locomotionPreset_data = validated_data.pop('locomotionPreset')
+        teleportationPreset_data = validated_data.pop('teleportationPreset')
+        rotationPreset_data = validated_data.pop('rotationPreset')
 
-        locomotionPresets = models.LocomotionPresets.objects.create(
-            **locomotionPresets_data)
-        teleportationPresets = models.TeleportationPresets.objects.create(
-            **teleportationPresets_data)
-        rotationPresets = models.RotationPresets.objects.create(
-            **rotationPresets_data)
+        locomotionPreset = models.LocomotionPreset.objects.create(
+            **locomotionPreset_data)
+        teleportationPreset = models.TeleportationPreset.objects.create(
+            **teleportationPreset_data)
+        rotationPreset = models.RotationPreset.objects.create(
+            **rotationPreset_data)
 
-        presetUser = models.PresetUsers.objects.create(locomotionPresets=locomotionPresets,
-                                                       teleportationPresets=teleportationPresets,
-                                                       rotationPresets=rotationPresets,
+        presetUser = models.PresetUsers.objects.create(locomotionPreset=locomotionPreset,
+                                                       teleportationPreset=teleportationPreset,
+                                                       rotationPreset=rotationPreset,
                                                        **validated_data)
         return presetUser
 
     def update(self, instance, validated_data):
-        locomotionPresets_data = validated_data.pop('locomotionPresets')
-        teleportationPresets_data = validated_data.pop('teleportationPresets')
-        rotationPresets_data = validated_data.pop('rotationPresets')
+        locomotionPreset_data = validated_data.pop('locomotionPreset')
+        teleportationPreset_data = validated_data.pop('teleportationPreset')
+        rotationPreset_data = validated_data.pop('rotationPreset')
 
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
         instance.save()
 
         presetUsers = models.PresetUsers.objects.get(pk=self.context['pk'])
-        if locomotionPresets_data:
+        if locomotionPreset_data:
             models.LocomotionPresets.objects.filter(
-                id=presetUsers.locomotionPresets.id).update(**locomotionPresets_data)
-        if teleportationPresets_data:
+                id=presetUsers.locomotionPresets.id).update(**locomotionPreset_data)
+        if teleportationPreset_data:
             models.TeleportationPresets.objects.filter(
-                id=presetUsers.locomotionPresets.id).update(**teleportationPresets_data)
-        if rotationPresets_data:
+                id=presetUsers.locomotionPresets.id).update(**teleportationPreset_data)
+        if rotationPreset_data:
             models.RotationPresets.objects.filter(
-                id=presetUsers.locomotionPresets.id).update(**rotationPresets_data)
+                id=presetUsers.locomotionPresets.id).update(**rotationPreset_data)
             
         return instance

@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class LocomotionPresets(models.Model):
+class LocomotionPreset(models.Model):
 
     name = models.CharField(max_length=255)
 
@@ -26,7 +26,7 @@ class LocomotionPresets(models.Model):
     screenFadingAlpha = models.FloatField(null=True)
 
 
-class TeleportationPresets(models.Model):
+class TeleportationPreset(models.Model):
 
     name = models.CharField(max_length=255)
 
@@ -49,7 +49,7 @@ class TeleportationPresets(models.Model):
     screenFadingAlpha = models.FloatField(null=True)
 
 
-class RotationPresets(models.Model):
+class RotationPreset(models.Model):
 
     name = models.CharField(max_length=255)
 
@@ -82,11 +82,11 @@ class PresetUsers(models.Model):
 
     name = models.CharField(max_length=255)
 
-    locomotionPresets = models.ForeignKey(LocomotionPresets,
-                                          on_delete=models.CASCADE)
+    locomotionPreset = models.ForeignKey(LocomotionPreset,
+                                         on_delete=models.CASCADE)
 
-    teleportationPresets = models.ForeignKey(TeleportationPresets,
-                                             on_delete=models.CASCADE)
+    teleportationPreset = models.ForeignKey(TeleportationPreset,
+                                            on_delete=models.CASCADE)
 
-    rotationPresets = models.ForeignKey(RotationPresets,
-                                        on_delete=models.CASCADE)
+    rotationPreset = models.ForeignKey(RotationPreset,
+                                       on_delete=models.CASCADE)

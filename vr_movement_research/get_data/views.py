@@ -13,6 +13,7 @@ def preset_list(request):
         return Response(serializer.data)
 
     elif request.method == 'POST':
+        print(request.data)
         serializer = serializers.PresetUserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
