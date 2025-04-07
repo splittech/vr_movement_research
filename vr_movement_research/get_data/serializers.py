@@ -1,76 +1,76 @@
 from rest_framework import serializers
 from . import models
 
+# TYRUFUY6T = serializers.JTYGFVJYT(SOURCE="lastLocomotionPreset.NdeviceNameAME")
 
 class LocomotionPresetSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = models.LocomotionPreset
         fields = '__all__'
 
 
 class TeleportationPresetSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = models.TeleportationPreset
         fields = '__all__'
 
 
 class RotationPresetSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = models.RotationPreset
         fields = '__all__'
 
+class ExperimentSessionSerializer(serializers.ModelSerializer):
 
-class PresetUserListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.PresetUsers
-        fields = '__all__'
+    lastLocomotionPreset = LocomotionPresetSerializer()
+    lastTeleportationPreset = TeleportationPresetSerializer()
+    lastRotationPreset = RotationPresetSerializer()
 
-
-class PresetUserSerializer(serializers.ModelSerializer):
-    locomotionPreset = LocomotionPresetSerializer()
-    teleportationPreset = TeleportationPresetSerializer()
-    rotationPreset = RotationPresetSerializer()
-
-    class Meta:
-        model = models.PresetUsers
-        fields = '__all__'
+    topTimeLocomotionPresets = LocomotionPresetSerializer(many=True)
+    topTimeTeleportationPresets = TeleportationPresetSerializer(many=True)
+    topTimeRotationPresets = RotationPresetSerializer(many=True)
 
     def create(self, validated_data):
-        locomotionPreset_data = validated_data.pop('locomotionPreset')
-        teleportationPreset_data = validated_data.pop('teleportationPreset')
-        rotationPreset_data = validated_data.pop('rotationPreset')
 
-        locomotionPreset = models.LocomotionPreset.objects.create(
-            **locomotionPreset_data)
-        teleportationPreset = models.TeleportationPreset.objects.create(
-            **teleportationPreset_data)
-        rotationPreset = models.RotationPreset.objects.create(
-            **rotationPreset_data)
+        lastLocomotionPreset = validated_data.pop('lastLocomotionPreset')
+        lastTeleportationPreset = validated_data.pop('lastTeleportationPreset')
+        lastRotationPreset = validated_data.pop('lastRotationPreset')
 
-        presetUser = models.PresetUsers.objects.create(locomotionPreset=locomotionPreset,
-                                                       teleportationPreset=teleportationPreset,
-                                                       rotationPreset=rotationPreset,
-                                                       **validated_data)
-        return presetUser
+        topTimeLocomotionPresets = validated_data.pop('topTimeLocomotionPresets')
+        topTimeTeleportationPresets = validated_data.pop('topTimeTeleportationPresets')
+        topTimeRotationPresets = validated_data.pop('topTimeRotationPresets')
 
-    def update(self, instance, validated_data):
-        locomotionPreset_data = validated_data.pop('locomotionPreset')
-        teleportationPreset_data = validated_data.pop('teleportationPreset')
-        rotationPreset_data = validated_data.pop('rotationPreset')
+        experimentSession = models.ExperimentSession.objects.create(**validated_data)
 
-        for attr, value in validated_data.items():
-            setattr(instance, attr, value)
-        instance.save()
+        models.LocomotionPreset.objects.create(experimentSession_1=experimentSession,
+                                                **lastLocomotionPreset)
 
-        presetUsers = models.PresetUsers.objects.get(pk=self.context['pk'])
-        if locomotionPreset_data:
-            models.LocomotionPresets.objects.filter(
-                id=presetUsers.locomotionPresets.id).update(**locomotionPreset_data)
-        if teleportationPreset_data:
-            models.TeleportationPresets.objects.filter(
-                id=presetUsers.locomotionPresets.id).update(**teleportationPreset_data)
-        if rotationPreset_data:
-            models.RotationPresets.objects.filter(
-                id=presetUsers.locomotionPresets.id).update(**rotationPreset_data)
+        models.TeleportationPreset.objects.create(experimentSession_1=experimentSession,
+                                                   **lastTeleportationPreset)
+        
+        models.RotationPreset.objects.create(experimentSession_1=experimentSession,
+                                                   **lastRotationPreset)
+
+        for topTimeLocomotionPreset in topTimeLocomotionPresets:
+            models.LocomotionPreset.objects.create(experimentSession_2=experimentSession,
+                                                   **topTimeLocomotionPreset)
             
-        return instance
+        for topTimeTeleportationPreset in topTimeTeleportationPresets:
+            models.TeleportationPreset.objects.create(experimentSession_2=experimentSession,
+                                                      **topTimeTeleportationPreset)
+        
+        for topTimeRotationPreset in topTimeRotationPresets:
+            models.RotationPreset.objects.create(experimentSession_2=experimentSession,
+                                                 **topTimeRotationPreset)
+
+        return experimentSession
+
+
+    class Meta:
+        model = models.ExperimentSession
+        fields = '__all__'
+
+    
