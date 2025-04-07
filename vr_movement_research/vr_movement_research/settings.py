@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-jsk!3hps6!($(i*#*(r)q-am+!y(y#mdjbtys86o*n(vwsg=$h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', 'http://158.160.153.8']
 
 
 # Application definition
@@ -78,18 +78,18 @@ WSGI_APPLICATION = 'vr_movement_research.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": "mydatabase",
-    }
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': os.environ.get("DB_NAME"),
-    #     'USER': os.environ.get("DB_USER"),
-    #     'PASSWORD': os.environ.get("DB_PASSWORD"),
-    #     'HOST': os.environ.get("DB_HOST"),
-    #     'PORT': os.environ.get("DB_PORT"),
+    # "default": {
+    #     "ENGINE": "django.db.backends.sqlite3",
+    #     "NAME": "mydatabase",
     # }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ.get("DB_NAME"),
+        'USER': os.environ.get("DB_USER"),
+        'PASSWORD': os.environ.get("DB_PASSWORD"),
+        'HOST': os.environ.get("DB_HOST"),
+        'PORT': os.environ.get("DB_PORT"),
+    }
 }
 
 # DATABASES = {
