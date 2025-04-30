@@ -1,8 +1,0 @@
-{
-    "mypy-type-checker.ignorePatterns": [
-        "import-untyped"
-    ],
-    "mypy-type-checker.disable_error_code": [
-        "import-untyped"
-    ]
-}
