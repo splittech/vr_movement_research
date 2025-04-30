@@ -1,3 +1,171 @@
 {
-    "python.analysis.typeCheckingMode": "off"
+    "personAge": 22,
+    "personExperienceInVR": 30,
+    "comment": "...",
+    "lastLocomotionPreset": {
+        "time": 0.0,
+        "movementSpeed": 10.100000381469727,
+        "allowHandDirection": false,
+        "handChoice": 0,
+        "allowScreenShaking": false,
+        "screenShakingAmplitude": 0.10000000149011612,
+        "screenShakingSpeed": 5.0,
+        "allowScreenFading": true,
+        "screenFadingMask": 1,
+        "screenFadingSpeed": 5.0,
+        "screenFadingAlpha": 191.0
+    },
+    "lastTeleportationPreset": {
+        "time": 0.0,
+        "teleportationDelay": 0.0,
+        "allowDashTeleportation": false,
+        "shiftType": 0,
+        "linearShiftSpeed": 7.0,
+        "smoothDampShiftSpeed": 0.009999999776482582,
+        "allowScreenFading": true,
+        "screenFadingMask": 1,
+        "screenFadingSpeed": 5.0,
+        "screenFadingAlpha": 255.0
+    },
+    "lastRotationPreset": {
+        "time": 0.0,
+        "rotationType": 1,
+        "smoothRotationSpeed": 50.0,
+        "snapRotationAngle": 45.0,
+        "snapRotationDelay": 0.10000000149011612,
+        "allowDashRotation": false,
+        "shiftType": 0,
+        "linearShiftSpeed": 100.0,
+        "smoothDampShiftSpeed": 0.20000000298023225,
+        "allowScreenFading": false,
+        "screenFadingMask": 0,
+        "screenFadingSpeed": 255.0,
+        "screenFadingAlpha": 255.0
+    },
+    "topTimeLocomotionPresets": [
+        {
+            "time": 46.551998138427737,
+            "movementSpeed": 10.100000381469727,
+            "allowHandDirection": false,
+            "handChoice": 0,
+            "allowScreenShaking": false,
+            "screenShakingAmplitude": 0.10000000149011612,
+            "screenShakingSpeed": 5.0,
+            "allowScreenFading": true,
+            "screenFadingMask": 1,
+            "screenFadingSpeed": 5.0,
+            "screenFadingAlpha": 255.0
+        },
+        {
+            "time": 68.4229965209961,
+            "movementSpeed": 5.0,
+            "allowHandDirection": false,
+            "handChoice": 0,
+            "allowScreenShaking": false,
+            "screenShakingAmplitude": 0.10000000149011612,
+            "screenShakingSpeed": 5.0,
+            "allowScreenFading": false,
+            "screenFadingMask": 0,
+            "screenFadingSpeed": 5.0,
+            "screenFadingAlpha": 255.0
+        },
+        {
+            "time": 19.81800079345703,
+            "movementSpeed": 10.100000381469727,
+            "allowHandDirection": false,
+            "handChoice": 0,
+            "allowScreenShaking": false,
+            "screenShakingAmplitude": 0.10000000149011612,
+            "screenShakingSpeed": 5.0,
+            "allowScreenFading": true,
+            "screenFadingMask": 1,
+            "screenFadingSpeed": 5.0,
+            "screenFadingAlpha": 226.0
+        }
+    ],
+    "topTimeTeleportationPresets": [
+        {
+            "time": 104.37000274658203,
+            "teleportationDelay": 0.0,
+            "allowDashTeleportation": true,
+            "shiftType": 1,
+            "linearShiftSpeed": 10.0,
+            "smoothDampShiftSpeed": 0.029999999329447748,
+            "allowScreenFading": true,
+            "screenFadingMask": 1,
+            "screenFadingSpeed": 5.0,
+            "screenFadingAlpha": 255.0
+        },
+        {
+            "time": 110.43199920654297,
+            "teleportationDelay": 0.0,
+            "allowDashTeleportation": false,
+            "shiftType": 0,
+            "linearShiftSpeed": 10.0,
+            "smoothDampShiftSpeed": 0.20000000298023225,
+            "allowScreenFading": false,
+            "screenFadingMask": 0,
+            "screenFadingSpeed": 5.0,
+            "screenFadingAlpha": 255.0
+        },
+        {
+            "time": 7.789000034332275,
+            "teleportationDelay": 0.0,
+            "allowDashTeleportation": true,
+            "shiftType": 1,
+            "linearShiftSpeed": 10.0,
+            "smoothDampShiftSpeed": 0.009999999776482582,
+            "allowScreenFading": true,
+            "screenFadingMask": 1,
+            "screenFadingSpeed": 5.0,
+            "screenFadingAlpha": 255.0
+        }
+    ],
+    "topTimeRotationPresets": [
+        {
+            "time": 123.23799896240235,
+            "rotationType": 0,
+            "smoothRotationSpeed": 50.0,
+            "snapRotationAngle": 45.0,
+            "snapRotationDelay": 0.5,
+            "allowDashRotation": false,
+            "shiftType": 0,
+            "linearShiftSpeed": 100.0,
+            "smoothDampShiftSpeed": 0.20000000298023225,
+            "allowScreenFading": false,
+            "screenFadingMask": 0,
+            "screenFadingSpeed": 255.0,
+            "screenFadingAlpha": 255.0
+        },
+        {
+            "time": 3.0929999351501467,
+            "rotationType": 0,
+            "smoothRotationSpeed": 50.0,
+            "snapRotationAngle": 45.0,
+            "snapRotationDelay": 0.5,
+            "allowDashRotation": false,
+            "shiftType": 0,
+            "linearShiftSpeed": 100.0,
+            "smoothDampShiftSpeed": 0.20000000298023225,
+            "allowScreenFading": false,
+            "screenFadingMask": 0,
+            "screenFadingSpeed": 255.0,
+            "screenFadingAlpha": 255.0
+        },
+        {
+            "time": 2.4159998893737795,
+            "rotationType": 1,
+            "smoothRotationSpeed": 50.0,
+            "snapRotationAngle": 45.0,
+            "snapRotationDelay": 0.5,
+            "allowDashRotation": false,
+            "shiftType": 0,
+            "linearShiftSpeed": 100.0,
+            "smoothDampShiftSpeed": 0.20000000298023225,
+            "allowScreenFading": false,
+            "screenFadingMask": 0,
+            "screenFadingSpeed": 255.0,
+            "screenFadingAlpha": 255.0
+        }
+    ]
 }

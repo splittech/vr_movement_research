@@ -2,94 +2,116 @@ from django.db import models
 
 
 class ExperimentSession(models.Model):
+    """
+    Данные об одной сессии эксперимента (для одного человека).
+    """
+    personAge = models.IntegerField(verbose_name='Возраст')
+    personExperienceInVR = models.IntegerField(verbose_name='Опыт в VR',
+                                               help_text='В часах')
+    comments = models.TextField(verbose_name='Комментарии',
+                                null=True, blank=True)
 
-    deviceName = models.CharField(max_length=255)
-    comment = models.TextField(null=True, blank=True)
-    
+    class Meta:
+        verbose_name = 'Сессия'
+        verbose_name_plural = 'Сессии'
 
-class LocomotionPreset(models.Model):
-
-    experimentSession_1 = models.ForeignKey(ExperimentSession,
-                                            related_name='lastLocomotionPreset',
-                                            on_delete=models.CASCADE,
-                                            blank=True,
-                                            null=True)
-    
-    experimentSession_2 = models.ForeignKey(ExperimentSession,
-                                            related_name='topTimeLocomotionPresets',
-                                            on_delete=models.CASCADE,
-                                            blank=True,
-                                            null=True)
-    
-    name = models.CharField(max_length=255, null=True, blank=True)
-    time = models.FloatField(null=True)
-    movementSpeed = models.FloatField(null=True)
-    allowHandDirection = models.BooleanField()
-    handChoice = models.IntegerField(null=True)
-    allowScreenShaking = models.BooleanField()
-    screenShakingAmplitude = models.FloatField(null=True)
-    screenShakingSpeed = models.FloatField(null=True)
-    allowScreenFading = models.BooleanField()
-    screenFadingMask = models.IntegerField(null=True)
-    screenFadingSpeed = models.FloatField(null=True)
-    screenFadingAlpha = models.FloatField(null=True)
+    def __str__(self):
+        return 'Сессия номер ' + str(self.id)
 
 
-class TeleportationPreset(models.Model):
+class BasePreset(models.Model):
+    """
+    Абстрактная модель для набора настроек.
+    """
+    experimentSession = models.ForeignKey(
+        ExperimentSession,
+        on_delete=models.CASCADE,
+        related_name='%(class)s',
+        verbose_name='Сессия'
+    )
 
-    experimentSession_1 = models.ForeignKey(ExperimentSession,
-                                            related_name='lastTeleportationPreset',
-                                            on_delete=models.CASCADE,
-                                            blank=True,
-                                            null=True)
-    
-    experimentSession_2 = models.ForeignKey(ExperimentSession,
-                                            related_name='topTimeTeleportationPresets',
-                                            on_delete=models.CASCADE,
-                                            blank=True,
-                                            null=True)
+    isTopTime = models.BooleanField(default=False)
 
-    name = models.CharField(max_length=255, null=True, blank=True)
-    time = models.FloatField(null=True)
-    teleportationDelay = models.FloatField(null=True)
-    allowDashTeleportation = models.BooleanField()
-    shiftType = models.IntegerField(null=True)
-    linearShiftSpeed = models.FloatField(null=True)
-    smoothDampShiftSpeed = models.FloatField(null=True)
-    allowScreenFading = models.BooleanField()
-    screenFadingMask = models.IntegerField(null=True)
-    screenFadingSpeed = models.FloatField(null=True)
-    screenFadingAlpha = models.FloatField(null=True)
+    time = models.FloatField(blank=True, null=True,
+                             verbose_name='Время использзования')
+
+    allowScreenFading = models.BooleanField(verbose_name='Затемнение экрана')
+    screenFadingMask = models.IntegerField(verbose_name='Маска')
+    screenFadingSpeed = models.FloatField(verbose_name='Скорость затемнения')
+    screenFadingAlpha = models.FloatField(
+        verbose_name='Прозрачность затемнения'
+    )
+
+    class Meta:
+        abstract = True
 
 
-class RotationPreset(models.Model):
+class LocomotionPreset(BasePreset):
+    """
+    Модель для набора настроек плавного передвижения.
+    """
+    movementSpeed = models.FloatField(verbose_name='Скорость передвижения')
+    allowHandDirection = models.BooleanField(
+        verbose_name='Рука указывает направление'
+    )
+    handChoice = models.IntegerField(verbose_name='Рука',
+                                     help_text='0-левая, 1-правая')
+    allowScreenShaking = models.BooleanField(verbose_name='Тряска экрана')
+    screenShakingAmplitude = models.FloatField(verbose_name='Амплитуда тряски')
+    screenShakingSpeed = models.FloatField(verbose_name='Скорость тряски')
 
-    experimentSession_1 = models.ForeignKey(ExperimentSession,
-                                            related_name='lastRotationPreset',
-                                            on_delete=models.CASCADE,
-                                            blank=True,
-                                            null=True)
-    
-    experimentSession_2 = models.ForeignKey(ExperimentSession,
-                                            related_name='topTimeRotationPresets',
-                                            on_delete=models.CASCADE,
-                                            blank=True,
-                                            null=True)
+    class Meta:
+        verbose_name = 'Настройки плавного передвижения'
+        verbose_name_plural = 'Настройки плавного передвижения'
 
-    name = models.CharField(max_length=255, null=True, blank=True)
-    time = models.FloatField(null=True)
-    rotationType = models.IntegerField()
-    smoothRotationSpeed = models.FloatField(null=True)
-    snapRotationAngle = models.FloatField(null=True)
-    snapRotationDelay = models.FloatField(null=True)
-    allowDashRotation = models.BooleanField(null=True)
-    shiftType = models.IntegerField(null=True)
-    linearShiftSpeed = models.FloatField(null=True)
-    smoothDampShiftSpeed = models.FloatField(null=True)
-    allowScreenFading = models.BooleanField()
-    screenFadingMask = models.IntegerField(null=True)
-    screenFadingSpeed = models.FloatField(null=True)
-    screenFadingAlpha = models.FloatField(null=True)
 
-    
+class TeleportationPreset(BasePreset):
+    """
+    Модель для набора настроек телепортации.
+    """
+    teleportationDelay = models.FloatField(
+        verbose_name='Задержка телепортации'
+    )
+    allowDashTeleportation = models.BooleanField(
+        verbose_name='Телепортация рывком'
+    )
+    shiftType = models.IntegerField(
+        verbose_name='Режим перемещения',
+        help_text='0-линейное перемещение, 1-перемещение с ускорением'
+    )
+    linearShiftSpeed = models.FloatField(
+        verbose_name='Линейная скорость'
+    )
+    smoothDampShiftSpeed = models.FloatField(
+        verbose_name='Скорость с ускорением'
+    )
 
+    class Meta:
+        verbose_name = 'Настройки телепортации'
+        verbose_name_plural = 'Настройки телепортации'
+
+
+class RotationPreset(BasePreset):
+    """
+    Модель для набора настроек вращения.
+    """
+    rotationType = models.IntegerField(verbose_name='Тип вращения')
+    smoothRotationSpeed = models.FloatField(
+        verbose_name='Скорость плавного вращения'
+    )
+    snapRotationAngle = models.FloatField(verbose_name='Угол резкого вращения')
+    snapRotationDelay = models.FloatField(
+        verbose_name='Задержка резкого вращения'
+    )
+    allowDashRotation = models.BooleanField(verbose_name='Вращение рывком')
+    shiftType = models.IntegerField(
+        verbose_name='Режим вращения рывком',
+        help_text='0-линейное вращение, 1-вразение с ускорением')
+    linearShiftSpeed = models.FloatField(verbose_name='Линейная скорость')
+    smoothDampShiftSpeed = models.FloatField(
+        verbose_name='Скорость с ускорением'
+    )
+
+    class Meta:
+        verbose_name = 'Настройки вращения'
+        verbose_name_plural = 'Настройки вращения'

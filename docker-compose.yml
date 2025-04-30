@@ -2,12 +2,7 @@ services:
   postgres:
     image: postgres:17.2-alpine
     container_name: postgres
-    environment:
-      POSTGRES_USER: django_user
-      POSTGRES_PASSWORD: django_password
-      POSTGRES_DB: presets
-    ports:
-      - "5432:5432"
+    env_file: .env
 
   django:
     build:
@@ -17,13 +12,7 @@ services:
       - "8000:8000"
     depends_on:
       - postgres
-    environment:
-      DEBUG: "False"
-      DB_NAME: "presets"
-      DB_USER: "django_user"
-      DB_PASSWORD: "django_password"
-      DB_HOST: "postgres"
-      DB_PORT: "5432"
+    env_file: .env
     volumes:
       - static_volume:/app/static
     restart: on-failure:5
