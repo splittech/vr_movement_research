@@ -33,7 +33,7 @@ class BasePreset(models.Model):
     isTopTime = models.BooleanField(default=False)
 
     time = models.FloatField(blank=True, null=True,
-                             verbose_name='Время использзования')
+                             verbose_name='Время использования')
 
     allowScreenFading = models.BooleanField(verbose_name='Затемнение экрана')
     screenFadingMask = models.IntegerField(verbose_name='Маска')
@@ -56,9 +56,11 @@ class LocomotionPreset(BasePreset):
     )
     handChoice = models.IntegerField(verbose_name='Рука',
                                      help_text='0-левая, 1-правая')
-    allowScreenShaking = models.BooleanField(verbose_name='Тряска экрана')
-    screenShakingAmplitude = models.FloatField(verbose_name='Амплитуда тряски')
-    screenShakingSpeed = models.FloatField(verbose_name='Скорость тряски')
+    allowScreenShaking = models.BooleanField(verbose_name='Покачивание экрана')
+    screenShakingAmplitude = models.FloatField(
+        verbose_name='Амплитуда покачивания'
+    )
+    screenShakingSpeed = models.FloatField(verbose_name='Скорость покачивания')
 
     class Meta:
         verbose_name = 'Настройки плавного передвижения'

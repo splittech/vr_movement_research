@@ -1,0 +1,55 @@
+{% extends 'representation/base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row mb-5">
+        <div class="col">
+            <h1>{{ page_header }}</h1>
+        </div>
+    </div>
+    <div class="row border border-5 rounded mb-5 pb-3">
+        <div class="row">
+            <div class="col">
+                {{ dependency_chart|safe }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <h4>Параметры графика</h4>
+                <form method="GET" action="{% url url_name %}">
+                    {% for field in dependency_form %}
+                        <div class="form-group mb-3">
+                            <label class="form-check-label">{{ field.label }}</label>
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-primary">Подтвердить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row border border-5 rounded mb-5 pb-3">
+        <div class="row">
+            <div class="col">
+                {{ histogram_chart|safe }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <h4>Параметры графика</h4>
+                <form method="GET" action="{% url url_name %}">
+                    {% for field in histogram_form %}
+                        <div class="form-group mb-3">
+                            <label class="form-check-label">{{ field.label }}</label>
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-primary">Подтвердить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
