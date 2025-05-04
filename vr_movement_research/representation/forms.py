@@ -2,8 +2,8 @@ from django import forms
 from get_data import models
 
 # Поля, которые нужно исключить из выбора в форме.
-EXCLUDE_PRESET_FIELD = 'isTopTime'
-EXCLUDE_SESSION_FIELDS = ('id', 'comments')
+EXCLUDE_PRESET_FIELDS = ('isTopTime',)
+EXCLUDE_SESSION_FIELDS = ('id', 'comments', 'deviceName')
 
 # Выбор типов рассматриваемых настроек.
 PRESETS_TYPE_CHOICES = [('last', 'Последние'),
@@ -44,7 +44,7 @@ class BaseChartForm(forms.Form):
         session_fields = models.ExperimentSession._meta.get_fields()
 
         for field in self.preset_fields:
-            if field.is_relation or field.name in EXCLUDE_PRESET_FIELD:
+            if field.is_relation or field.name in EXCLUDE_PRESET_FIELDS:
                 continue
             self.choices.append((field.name, field.verbose_name))
 
