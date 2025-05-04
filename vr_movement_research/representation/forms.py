@@ -3,7 +3,7 @@ from get_data import models
 
 # Поля, которые нужно исключить из выбора в форме.
 EXCLUDE_PRESET_FIELDS = ('isTopTime',)
-EXCLUDE_SESSION_FIELDS = ('id', 'comments', 'deviceName')
+EXCLUDE_SESSION_FIELDS = ('id', 'comments')
 
 # Выбор типов рассматриваемых настроек.
 PRESETS_TYPE_CHOICES = [('last', 'Последние'),
