@@ -75,3 +75,15 @@ def rotation_charts(request):
         forms.RotationDependenceChartForm,
         forms.RotationHistogramChartForm
     )
+
+
+def start_representation(request):
+    """
+    Представление для отображения начальной страницы.
+    """
+    context = {
+        'url_name': resolve(request.path).url_name,
+        'page_header': 'Выберите интересующие настройки в верхнем меню',
+    }
+
+    return render(request, 'representation/charts.html', context)

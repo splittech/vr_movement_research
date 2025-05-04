@@ -5,6 +5,9 @@ class ExperimentSession(models.Model):
     """
     Данные об одной сессии эксперимента (для одного человека).
     """
+    deviceName = models.CharField(max_length=255,
+                                  verbose_name='Название устройства')
+    sessionTotalTime = models.FloatField(verbose_name='Общее время сессии')
     personAge = models.IntegerField(verbose_name='Возраст')
     personExperienceInVR = models.IntegerField(verbose_name='Опыт в VR',
                                                help_text='В часах')
