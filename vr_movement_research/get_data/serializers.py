@@ -72,24 +72,32 @@ class ExperimentSessionSerializer(serializers.ModelSerializer):
         )
 
         lastLocomotionPreset.pop('time', None)
+        lastLocomotionPreset = self.cast_unused_options_for_locomotion(
+            lastLocomotionPreset)
         models.LocomotionPreset.objects.create(
             experimentSession=experimentSession,
             **lastLocomotionPreset
         )
 
         lastTeleportationPreset.pop('time', None)
+        lastTeleportationPreset = self.cast_unused_options_for_teleportation(
+            lastTeleportationPreset)
         models.TeleportationPreset.objects.create(
             experimentSession=experimentSession,
             **lastTeleportationPreset
         )
 
         lastRotationPreset.pop('time', None)
+        lastRotationPreset = self.cast_unused_options_for_rotation(
+            lastRotationPreset)
         models.RotationPreset.objects.create(
             experimentSession=experimentSession,
             **lastRotationPreset
         )
 
         for topTimeLocomotionPreset in topTimeLocomotionPresets:
+            topTimeLocomotionPreset = self.cast_unused_options_for_locomotion(
+                topTimeLocomotionPreset)
             models.LocomotionPreset.objects.create(
                 experimentSession=experimentSession,
                 isTopTime=True,
@@ -97,6 +105,7 @@ class ExperimentSessionSerializer(serializers.ModelSerializer):
             )
 
         for topTimeTeleportationPreset in topTimeTeleportationPresets:
+            topTimeTeleportationPreset = self.cast_unused_options_for_teleportation(topTimeTeleportationPreset)
             models.TeleportationPreset.objects.create(
                 experimentSession=experimentSession,
                 isTopTime=True,
@@ -104,6 +113,7 @@ class ExperimentSessionSerializer(serializers.ModelSerializer):
             )
 
         for topTimeRotationPreset in topTimeRotationPresets:
+            topTimeRotationPreset = self.cast_unused_options_for_rotation(topTimeRotationPreset)
             models.RotationPreset.objects.create(
                 experimentSession=experimentSession,
                 isTopTime=True,
@@ -111,6 +121,66 @@ class ExperimentSessionSerializer(serializers.ModelSerializer):
             )
 
         return experimentSession
+
+    def cast_unused_options_for_locomotion(self, data):
+
+        if data.get('allowHandDirection') is not True:
+            data.pop('allowHandDirection', None)
+
+        if data.get('allowScreenShaking') is not True:
+            data.pop('screenShakingAmplitude', None)
+            data.pop('screenShakingSpeed', None)
+
+        if data.get('allowScreenFading') is not True:
+            data.pop('screenFadingMask', None)
+            data.pop('screenFadingSpeed', None)
+            data.pop('screenFadingAlpha', None)
+
+        return data
+
+    def cast_unused_options_for_teleportation(self, data):
+
+        if data.get('allowDashTeleportation') is not True:
+            data.pop('shiftType', None)
+
+        if data.get('shiftType') != 0:
+            data.pop('linearShiftSpeed', None)
+
+        if data.get('shiftType') != 1:
+            data.pop('smoothDampShiftSpeed', None)
+
+        if data.get('allowScreenFading') is not True:
+            data.pop('screenFadingMask', None)
+            data.pop('screenFadingSpeed', None)
+            data.pop('screenFadingAlpha', None)
+
+        return data
+
+    def cast_unused_options_for_rotation(self, data):
+
+        if data.get('rotationType') != 0:
+            data.pop('smoothRotationSpeed', None)
+
+        if data.get('rotationType') != 1:
+            data.pop('snapRotationAngle', None)
+            data.pop('snapRotationDelay', None)
+            data.pop('allowDashRotation', None)
+
+        if data.get('allowDashRotation') is not True:
+            data.pop('shiftType', None)
+
+        if data.get('shiftType') != 0:
+            data.pop('linearShiftSpeed', None)
+
+        if data.get('shiftType') != 1:
+            data.pop('smoothDampShiftSpeed', None)
+
+        if data.get('allowScreenFading') is not True:
+            data.pop('screenFadingMask', None)
+            data.pop('screenFadingSpeed', None)
+            data.pop('screenFadingAlpha', None)
+
+        return data
 
     class Meta:
         model = models.ExperimentSession

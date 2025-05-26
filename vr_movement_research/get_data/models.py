@@ -39,10 +39,13 @@ class BasePreset(models.Model):
                              verbose_name='Время использования')
 
     allowScreenFading = models.BooleanField(verbose_name='Затемнение экрана')
-    screenFadingMask = models.IntegerField(verbose_name='Маска')
-    screenFadingSpeed = models.FloatField(verbose_name='Скорость затемнения')
+    screenFadingMask = models.IntegerField(verbose_name='Маска',
+                                           blank=True, null=True,)
+    screenFadingSpeed = models.FloatField(verbose_name='Скорость затемнения',
+                                          blank=True, null=True,)
     screenFadingAlpha = models.FloatField(
-        verbose_name='Прозрачность затемнения'
+        verbose_name='Прозрачность затемнения',
+        blank=True, null=True,
     )
 
     class Meta:
@@ -55,15 +58,20 @@ class LocomotionPreset(BasePreset):
     """
     movementSpeed = models.FloatField(verbose_name='Скорость передвижения')
     allowHandDirection = models.BooleanField(
-        verbose_name='Рука указывает направление'
+        verbose_name='Рука указывает направление',
+        blank=True, null=True,
     )
     handChoice = models.IntegerField(verbose_name='Рука',
-                                     help_text='0-левая, 1-правая')
-    allowScreenShaking = models.BooleanField(verbose_name='Покачивание экрана')
+                                     help_text='0-левая, 1-правая',
+                                     blank=True, null=True,)
+    allowScreenShaking = models.BooleanField(verbose_name='Покачивание экрана',
+                                             blank=True, null=True,)
     screenShakingAmplitude = models.FloatField(
-        verbose_name='Амплитуда покачивания'
+        verbose_name='Амплитуда покачивания',
+        blank=True, null=True,
     )
-    screenShakingSpeed = models.FloatField(verbose_name='Скорость покачивания')
+    screenShakingSpeed = models.FloatField(verbose_name='Скорость покачивания',
+                                           blank=True, null=True,)
 
     class Meta:
         verbose_name = 'Настройки плавного передвижения'
@@ -82,13 +90,16 @@ class TeleportationPreset(BasePreset):
     )
     shiftType = models.IntegerField(
         verbose_name='Режим перемещения',
-        help_text='0-линейное перемещение, 1-перемещение с ускорением'
+        help_text='0-линейное перемещение, 1-перемещение с ускорением',
+        blank=True, null=True,
     )
     linearShiftSpeed = models.FloatField(
-        verbose_name='Линейная скорость'
+        verbose_name='Линейная скорость',
+        blank=True, null=True,
     )
     smoothDampShiftSpeed = models.FloatField(
-        verbose_name='Скорость с ускорением'
+        verbose_name='Скорость с ускорением',
+        blank=True, null=True,
     )
 
     class Meta:
@@ -102,19 +113,26 @@ class RotationPreset(BasePreset):
     """
     rotationType = models.IntegerField(verbose_name='Тип вращения')
     smoothRotationSpeed = models.FloatField(
-        verbose_name='Скорость плавного вращения'
+        verbose_name='Скорость плавного вращения',
+        blank=True, null=True,
     )
-    snapRotationAngle = models.FloatField(verbose_name='Угол резкого вращения')
+    snapRotationAngle = models.FloatField(verbose_name='Угол резкого вращения',
+                                          blank=True, null=True,)
     snapRotationDelay = models.FloatField(
-        verbose_name='Задержка резкого вращения'
+        verbose_name='Задержка резкого вращения',
+        blank=True, null=True,
     )
-    allowDashRotation = models.BooleanField(verbose_name='Вращение рывком')
+    allowDashRotation = models.BooleanField(verbose_name='Вращение рывком',
+                                            blank=True, null=True,)
     shiftType = models.IntegerField(
         verbose_name='Режим вращения рывком',
-        help_text='0-линейное вращение, 1-вразение с ускорением')
-    linearShiftSpeed = models.FloatField(verbose_name='Линейная скорость')
+        help_text='0-линейное вращение, 1-вразение с ускорением',
+        blank=True, null=True,)
+    linearShiftSpeed = models.FloatField(verbose_name='Линейная скорость',
+                                         blank=True, null=True,)
     smoothDampShiftSpeed = models.FloatField(
-        verbose_name='Скорость с ускорением'
+        verbose_name='Скорость с ускорением',
+        blank=True, null=True,
     )
 
     class Meta:
