@@ -57,7 +57,7 @@ def get_dependence_chart(PresetModel, field_name_x,
     verbose_name_y = get_verbose_name_with_nested(PresetModel, field_name_y)
 
     # Строим график.
-    fig = px.line(
+    fig = px.scatter(
         x=field_values_x,
         y=field_values_y,
         title='График зависимости',

@@ -1,0 +1,55 @@
+{
+    "deviceName": "PICO 4",
+    "sessionTotalTime": 1015.603,
+    "personAge": 24,
+    "personExperienceInVR": 100,
+    "lastLocomotionPreset": {
+        "time": 0.0,
+        "movementSpeed": 8,
+        "allowHandDirection": false,
+        "allowScreenShaking": false,
+        "allowScreenFading": false
+    },
+    "lastTeleportationPreset": {
+        "time": 0.0,
+        "teleportationDelay": 0.0,
+        "allowDashTeleportation": false,
+        "allowScreenFading": false
+    },
+    "lastRotationPreset": {
+        "time": 0.0,
+        "rotationType": 1,
+        "snapRotationAngle": 45.0,
+        "snapRotationDelay": 0.10000000149011612,
+        "allowDashRotation": false,
+        "allowScreenFading": false
+    },
+    "topTimeLocomotionPresets": [
+        {
+            "time": 155.436,
+            "movementSpeed": 8,
+            "allowHandDirection": true,
+            "handChoice": 1,
+            "allowScreenShaking": false,
+            "allowScreenFading": false
+        }
+    ],
+    "topTimeTeleportationPresets": [
+        {
+            "time": 50.66,
+            "teleportationDelay": 0.0,
+            "allowDashTeleportation": false,
+            "allowScreenFading": false
+        }
+    ],
+    "topTimeRotationPresets": [
+        {
+            "time": 269.923,
+            "rotationType": 1,
+            "snapRotationAngle": 45.0,
+            "snapRotationDelay": 0.10000000149011612,
+            "allowDashRotation": false,
+            "allowScreenFading": false
+        }
+    ]
+}
