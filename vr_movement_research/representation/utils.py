@@ -60,7 +60,7 @@ def get_dependence_chart(PresetModel, field_name_x,
     fig = px.scatter(
         x=field_values_x,
         y=field_values_y,
-        title='График зависимости',
+        title='Диаграмма рассеяния',
         labels={'x': verbose_name_x, 'y': verbose_name_y}
     )
     fig.update_layout(
