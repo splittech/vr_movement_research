@@ -4,6 +4,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
 from django.db.models import ForeignKey
+from django.db.models import Q
 
 
 def get_dependence_chart(PresetModel, field_name_x,
@@ -14,11 +15,24 @@ def get_dependence_chart(PresetModel, field_name_x,
     """
 
     # Получаем набор настроек в зависимости от указанного типа и модели.
-    if presets_type == 'both':
-        presets = PresetModel.objects.all()
+    presets = []
+    if presets_type == 'top_time':
+        presets = PresetModel.objects.filter(
+             isTopTime=True,
+             time__gt=120
+        )
+    elif presets_type == 'both':
+        top_time_presets = PresetModel.objects.filter(
+             isTopTime=True,
+             time__gt=120
+        )
+        last_presets = PresetModel.objects.filter(
+             isTopTime=False
+        )
+        presets = top_time_presets | last_presets
     else:
         presets = PresetModel.objects.filter(
-             isTopTime=presets_type == 'top_time'
+             isTopTime=False,
         )
 
     # Получаем наборы точек для графика.
@@ -29,6 +43,14 @@ def get_dependence_chart(PresetModel, field_name_x,
     else:
         field_values_x = [get_attr_with_nested(obj, field_name_x) for obj in presets]
         field_values_y = [get_attr_with_nested(obj, field_name_y) for obj in presets]
+        # Объединяем два списка.
+        zipped_lists = zip(field_values_x, field_values_y)
+        # Сортируем объединенный список по значениям первого списка.
+        sorted_pairs = sorted(zipped_lists)
+        # Распаковываем отсортированные пары обратно в отдельные списки.
+        sorted_field_values_x, sorted_field_values_y = zip(*sorted_pairs)
+        field_values_x = list(sorted_field_values_x)
+        field_values_y = list(sorted_field_values_y)
 
     # Русифицируем.
     verbose_name_x = get_verbose_name_with_nested(PresetModel, field_name_x)
