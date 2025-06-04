@@ -71,6 +71,9 @@ def get_dependence_chart(PresetModel, field_name_x,
         }
     )
 
+    fig.update_xaxes(title_font=dict(size=24))  # Устанавливаем размер шрифта для оси X
+    fig.update_yaxes(title_font=dict(size=24))  # Устанавливаем размер шрифта для оси Y
+
     # Возвращаем html-представление.
     return fig.to_html
 
@@ -115,6 +118,9 @@ def get_histogram_chart(PresetModel, field_name, presets_type):
         xaxis_title=verbose_name,
         yaxis_title='Количество'
     )
+
+    fig.update_xaxes(title_font=dict(size=24))
+    fig.update_yaxes(title_font=dict(size=24))
 
     # Возвращаем html-представление.
     return fig.to_html
